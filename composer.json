@@ -1,0 +1,32 @@
+{
+  "name": "neyromanser/laravel-shop",
+  "description": "Order for Laravel Application.",
+  "keywords": [
+    "shop",
+    "cart",
+    "order",
+    "laravel"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "RaSta",
+      "email": "neyromanser@gmail.com"
+    }
+  ],
+  "require": {
+    "illuminate/support": "5.0.*|5.1.*|5.2.*",
+    "illuminate/config": "5.0.*|5.1.*|5.2.*",
+    "illuminate/database": "5.0.*|5.1.*|5.2.*",
+    "illuminate/console": "5.0.*|5.1.*|5.2.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Neyromanser\\LaravelShop\\": "src"
+    }
+  }
+}
