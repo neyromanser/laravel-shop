@@ -1,12 +1,6 @@
 <?php
 
 namespace Neyromanser\LaravelShop;
-/**
- * Created by PhpStorm.
- * User: ray
- * Date: 15/7/27
- * Time: 上午11:19
- */
 
 use Illuminate\Support\ServiceProvider;
 
@@ -35,11 +29,24 @@ class LaravelShopServiceProvider extends ServiceProvider {
     }
 
     protected function registerServices() {
-      $this->app->bind('shop', function ($app) {
-        return new Shop($app);
-      });
+        $this->app->bind('shop', function ($app) {
+            $session = $app['session'];
+            $events = $app['events'];
+            $cart = new Cart($session, $events);
+            $shop = new Shop($app, $cart);
+            return $shop;
+        });
 
-      $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'shop');
+        $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'shop');
+
+        /*
+        $this->app['cart'] = $this->app->share(function($app)
+        {
+            $session = $app['session'];
+            $events = $app['events'];
+            return new Cart($session, $events);
+        });
+        */
     }
 
     /**

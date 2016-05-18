@@ -2,7 +2,8 @@
 
 namespace Neyromanser\LaravelShop;
 
-use Neyromanser\LaravelShop\Model\Order as Order;
+use Neyromanser\LaravelShop\Model\Order;
+use Neyromanser\LaravelShop\Cart;
 
 class Shop{
 
@@ -12,6 +13,7 @@ class Shop{
      * @var \Illuminate\Foundation\Application
      */
     public $app;
+    static $cart = null;
 
     /**
      * Create a new confide instance.
@@ -20,14 +22,17 @@ class Shop{
      *
      * @return void
      */
-    public function __construct($app)
-    {
+    public function __construct($app, $cart){
         $this->app = $app;
-       // static::$gatewayKey     = $this->getGateway();
+        static::$cart = $cart;
     }
 
-    public function Order(){
+    static function Order(){
         return new Order();
+    }
+
+    static function Cart(){
+        return static::$cart;
     }
 
 }
