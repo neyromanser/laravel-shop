@@ -31,7 +31,7 @@ class Order extends Model
           $order->fill($data);
         }
 
-          $order->state = config("order.status_init");
+          $order->state = config("shop.status_init");
           $order->save();
 
         return $order;
@@ -188,7 +188,7 @@ class Order extends Model
             return false;
         }
 
-        if ($status == config("order.status_complete")) {
+        if ($status == config("shop.status_complete")) {
           //Mark order as completed
           $order->completed_at = date("Y-m-d H:i:s");
         }

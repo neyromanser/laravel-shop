@@ -1,6 +1,6 @@
 <?php
 
-namespace Trexology\LaravelOrder;
+namespace Neyromanser\LaravelShop;
 /**
  * Created by PhpStorm.
  * User: ray
@@ -10,7 +10,7 @@ namespace Trexology\LaravelOrder;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelOrderServiceProvider extends ServiceProvider {
+class LaravelShopServiceProvider extends ServiceProvider {
 
     /**
      * Register the service provider.
@@ -30,16 +30,16 @@ class LaravelOrderServiceProvider extends ServiceProvider {
         ], 'migrations');
 
         $this->publishes([
-            __DIR__.'/config/config.php' => config_path('order.php')
+            __DIR__.'/config/config.php' => config_path('shop.php')
         ], 'config');
     }
 
     protected function registerServices() {
-      $this->app->bind('order', function ($app) {
-        return new Model\Order;
+      $this->app->bind('shop', function ($app) {
+        return new Shop($app);
       });
 
-      $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'order');
+      $this->mergeConfigFrom(__DIR__ . '/config/config.php', 'shop');
     }
 
     /**
@@ -50,7 +50,7 @@ class LaravelOrderServiceProvider extends ServiceProvider {
      */
     protected function config($key, $default = null)
     {
-        return config("order.$key", $default);
+        return config("shop.$key", $default);
     }
 
     /**

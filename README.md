@@ -14,14 +14,14 @@ After installation，go to `config/app.php` under `providers` section to add the
 
 and under "aliases" add:
 
-    'Order'     => Neyromanser\LaravelShop\Facades\ShopFacade::class
+    'Shop' => Neyromanser\LaravelShop\Facades\ShopFacade::class
 
 
 publish the migration and config files with the command:
 
     php artisan vendor:publish
 
-Edit additional settings at `config/order.php`
+Edit additional settings at `config/shop.php`
 
 ```php
     return [
