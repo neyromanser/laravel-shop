@@ -30,4 +30,12 @@ Edit additional settings at `config/shop.php`
 ```
 
 # Usage
-
+```php
+Shop::Cart()->add([
+    'id'      => $id,
+    'name'    => $name,
+    'qty'     => $request->input('qty', 1),
+    'price'   => $item->price,
+    'options' => $options
+]);
+```
