@@ -9,6 +9,9 @@ class Order extends Model
 {
     protected $table = 'orders';
 
+    //protected $dateFormat = 'U';
+    protected $dates = ['created_at'];
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
@@ -141,167 +144,112 @@ class Order extends Model
 
     /**
      * Delete an Order
-     *
      * @param $item_id
-     *
      * @return bool
      */
-    public function removeItem($order_id, $item_id)
-    {
+    public function removeItem($order_id, $item_id){
         $order = self::findOrFail($order_id);
-
         $item = OrderItem::findOrFail($item_id);
-
-        if (!($order->id == $item->order_id)) {
+        if (!($order->id == $item->order_id))
             return false;
-        }
-
-        if (!$item) {
+        if (!$item)
             return false;
-        }
 
         $item->delete();
-
         $this->updateOrder($order_id);
-
         return true;
     }
 
     /**
      * Update an Order Status
-     *
      * @param $order_id
      * @param $status
-     *
      * @return bool
      */
-    public function updateStatus($order_id, $status)
-    {
-        // if (!($status == $this->INIT || $status == $this->COMPLETE
-        //     || $status == $this->OBLIGATION || $status == $this->PROCESSING)) {
-        //     return false;
-        // }
-
+    public function updateStatus($order_id, $status){
         $order = $this->getOrder($order_id);
-
-        if (!$order) {
+        if (!$order)
             return false;
-        }
 
-        if ($status == config("shop.status_complete")) {
-          //Mark order as completed
-          $order->completed_at = date("Y-m-d H:i:s");
-        }
+        if ($status == config("shop.status_complete"))
+            $order->completed_at = date("Y-m-d H:i:s");
 
         $order->state = $status;
         $order->save();
-
         return true;
     }
 
     /**
      * Delete an Order
-     *
      * @param $order_id
-     *
      * @return bool
      */
-    public function deleteOrder($order_id)
-    {
+    public function deleteOrder($order_id){
         $order = $this->getOrder($order_id);
-
-        if (!$order) {
+        if (!$order)
             return false;
-        }
 
         OrderItem::where('order_id', $order->id)->delete();
-
         $order->delete();
-
         return true;
     }
 
     /**
      * Refresh an Order's values
-     *
      * @param $order_id
-     *
      * @return bool
      */
-
-    public function updateOrder($order)
-    {
-        // $order = self::findOrFail($order_id);
-        if (!$order) {
+    public function updateOrder($order){
+        if (!$order)
             return false;
-        }
+
         $order->items_total = $this->total($order);
         $order->items_number = $this->count($order);
-
         $order->save();
-
         return $order;
     }
 
     /**
      * Calculate an Order total amount
-     *
      * @param $order_id
-     *
      * @return int
      */
-
-    public function total($order)
-    {
+    public function total($order){
         if ($order->id > 0) {
             $items = OrderItem::where('order_id', $order->id)->get();
-        }
-        else{
+        }else{
             $items = $order->orderItems;
         }
-
         $total = 0;
-
         if ($items) {
-          foreach ($items as $item) {
-              $total += $item->total_price;
-          }
+            foreach ($items as $item) {
+                $total += $item->total_price;
+            }
         }
-
         return $total;
     }
 
     /**
      * Calculate an Order total item count
-     *
      * @param $order_id
-     *
      * @return int
      */
-    public function count($order)
-    {
+    public function count($order){
         if ($order->id > 0) {
             $items = OrderItem::where('order_id', $order->id)->get();
-        }
-        else{
+        }else{
             $items = $order->orderItems;
         }
-        // $items = OrderItem::where('order_id', $order_id)->get();
-
         $count = 0;
-
         if ($items) {
-          foreach ($items as $item) {
-              $count += $item->quantity;
-          }
+            foreach ($items as $item) {
+                $count += $item->quantity;
+            }
         }
-
         return $count;
     }
 
-    public function orderItems()
-    {
+    public function orderItems(){
         return $this->hasMany('Neyromanser\LaravelShop\Model\OrderItem');
     }
-	
 }
