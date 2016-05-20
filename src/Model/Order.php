@@ -31,8 +31,8 @@ class Order extends Model
           $order->fill($data);
         }
 
-          $order->state = config("shop.status_init");
-          $order->save();
+        $order->state = config("shop.status_init");
+        $order->save();
 
         return $order;
     }

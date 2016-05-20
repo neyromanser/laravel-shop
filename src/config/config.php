@@ -6,8 +6,8 @@ return [
 	* todo:
     */
 
-     'currency' => "грн.",
-	 'status_init' => 'Заказ принят',
-	 'status_complete' => 'Заказ принят',
+     'currency' => "РіСЂРЅ.",
+	 'status_init' => 'Р—Р°РєР°Р· РїСЂРёРЅСЏС‚',
+	 'status_complete' => 'Р—Р°РєР°Р· РІС‹РїРѕР»РЅРµРЅ',
 
 ];

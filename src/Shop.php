@@ -5,6 +5,8 @@ namespace Neyromanser\LaravelShop;
 use Neyromanser\LaravelShop\Model\Order;
 use Neyromanser\LaravelShop\Cart;
 
+use DB;
+
 class Shop{
 
     /**
@@ -33,6 +35,14 @@ class Shop{
 
     static function Cart(){
         return static::$cart;
+    }
+
+    static function getPayment(){
+        return DB::table('payment_method')->where('active',1)->select()->get();
+    }
+
+    static function getShipping(){
+        return DB::table('shipping_method')->where('active',1)->select()->get();
     }
 
 }
