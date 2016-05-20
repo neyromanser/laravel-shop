@@ -122,8 +122,11 @@ class Order extends Model
         return $order;
     }
 
-    public function batchAddItems($order, $orderItems)
-    {
+    public function addItems($order, $orderItems){
+        return $this->batchAddItems($order, $orderItems);
+    }
+
+    public function batchAddItems($order, $orderItems){
         foreach ($orderItems as $item) {
           $orderItem = new OrderItem();
 

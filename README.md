@@ -80,7 +80,7 @@ Shop::Order()->order(Auth::user()->id, [
 ]);
 
 # Add items to order
-Shop::Order()->batchAddItems($order, [
+Shop::Order()->addItems($order, [
     [
         "description" => $name,
         "currency" => $currency,
