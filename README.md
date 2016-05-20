@@ -30,7 +30,9 @@ Edit additional settings at `config/shop.php`
 ```
 
 # Usage
+## Cart
 ```php
+# Add to cart
 Shop::Cart()->add([
     'id'      => $id,
     'name'    => $name,
@@ -38,4 +40,70 @@ Shop::Cart()->add([
     'price'   => $item->price,
     'options' => $options
 ]);
+
+# Remove from cart
+Shop::Cart()->remove($id);
+
+# Update cart
+Shop::Cart()->update($id, $quantity);
+
+# Cart total sum
+Shop::Cart()->total()
+
+# Cart positions amount
+Shop::Cart()->count()
+
+# Cart total products units
+Shop::Cart()->count(false)
+
+# Search in cart
+Shop::Cart()->search(['id' => 123]);
+
+# Associate cart with App\Model\Product
+Shop::Cart()->associate('Product', 'App\\Model')
+
+# New cart instance
+Shop::Cart()->instance('wishlist')
+```
+## Order
+```php
+# Create order
+Shop::Order()->order(Auth::user()->id, [
+    'shipping_method_id' => $request->input('shipping_method',0),
+    'payment_method_id' => $request->input('payment_method',0),
+    'shipping_address' => $request->input('address',''),
+    'shipping_city' => $request->input('city',''),
+    'shipping_name' => $request->input('name',''),
+    'shipping_email' => $request->input('email',''),
+    'shipping_phone' => $request->input('phone',''),
+    'note' => $request->input('note','')
+]);
+
+# Add items to order
+Shop::Order()->batchAddItems($order, [
+    [
+        "description" => $name,
+        "currency" => $currency,
+        "line_item_id" => $item->id,
+        "line_item_type" => "App\\ProductVariant",
+        "price" => $item->price,
+        "quantity" => $item->qty,
+        "vat" => 0
+    ],[
+        "description" => $name,
+        "currency" => $currency,
+        "line_item_id" => $item->id,
+        "line_item_type" => "App\\ProductVariant",
+        "price" => $item->price,
+        "quantity" => $item->qty,
+        "vat" => 0
+    ],
+    
+]);
+```
+
+
+# Demo
+```php
+Shop::Cart()->instance('wishlist')->associate('Product', 'App')->add($addItem);
 ```
