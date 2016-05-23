@@ -37,6 +37,11 @@ class Shop{
         return static::$cart;
     }
 
+    static function Wishlist(){
+        $wishlist = static::$cart->instance('wishlist');
+        return $wishlist;
+    }
+
     static function getPayment(){
         return DB::table('payment_method')->where('active',1)->select()->get();
     }
