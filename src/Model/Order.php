@@ -54,14 +54,17 @@ class Order extends Model
 
     /**
      * Get User Order
-     *
      * @param $user_id
-     *
      * @return mixed
      */
     public function getUserOrders($user_id)
     {
         return self::where('user_id', $user_id)->get();
+    }
+
+    public function getAllOrders()
+    {
+        return self::orderBy('created_at','desc')->get();
     }
 
     /**
