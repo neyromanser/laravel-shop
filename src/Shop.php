@@ -42,12 +42,18 @@ class Shop{
         return $wishlist;
     }
 
-    static function getPayment(){
-        return DB::table('payment_method')->where('active',1)->select()->get();
+    static function getPayment($id=false){
+        if($id)
+            return DB::table('payment_method')->where('active',1)->where('id',$id)->select()->get();
+        else
+            return DB::table('payment_method')->where('active',1)->select()->get();
     }
 
-    static function getShipping(){
-        return DB::table('shipping_method')->where('active',1)->select()->get();
+    static function getShipping($id=false){
+        if($id)
+            return DB::table('shipping_method')->where('active',1)->where('id',$id)->select()->get();
+        else
+            return DB::table('shipping_method')->where('active',1)->select()->get();
     }
 
 }
