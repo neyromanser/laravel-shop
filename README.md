@@ -109,8 +109,10 @@ Shop::Cart()->instance('wishlist')->associate('Product', 'App')->add($addItem);
 ```
 
 ### based on
-https://github.com/Trexology/laravel-order
+https://github.com/Trexology/laravel-order  
 https://github.com/Crinsane/LaravelShoppingcart
 
 ### look at
 https://github.com/amsgames/laravel-shop
+
+upd
