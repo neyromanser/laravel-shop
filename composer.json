@@ -1,6 +1,8 @@
 {
   "name": "neyromanser/laravel-shop",
   "description": "Order for Laravel Application.",
+  "type": "library",
+  "homepage": "https://github.com/neyromanser/laravel-shop",
   "keywords": [
     "shop",
     "cart",
