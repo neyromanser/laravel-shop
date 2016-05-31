@@ -60,7 +60,7 @@ class Shop{
         if($id){
             $item = DB::table('payment_method')->where('active',1)->where('id',$id)->select()->get();
 			if($item && isset($item[0]))
-				return $item->name;
+				return $item[0]->name;
 		}
 		
 		return ' - ';
@@ -70,7 +70,7 @@ class Shop{
         if($id){
             $item = DB::table('shipping_method')->where('active',1)->where('id',$id)->select()->get();
 			if($item && isset($item[0]))
-				return $item->name;
+				return $item[0]->name;
 		}
 		
 		return ' - ';
