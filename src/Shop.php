@@ -55,5 +55,26 @@ class Shop{
         else
             return DB::table('shipping_method')->where('active',1)->select()->get();
     }
+	
+	static function getPaymentName($id){
+        if($id){
+            $item = DB::table('payment_method')->where('active',1)->where('id',$id)->select()->get();
+			if($item && isset($item[0]))
+				return $item->name;
+		}
+		
+		return ' - ';
+    }
+	
+	static function getShippingName($id){
+        if($id){
+            $item = DB::table('shipping_method')->where('active',1)->where('id',$id)->select()->get();
+			if($item && isset($item[0]))
+				return $item->name;
+		}
+		
+		return ' - ';
+    }
+	
 
 }
