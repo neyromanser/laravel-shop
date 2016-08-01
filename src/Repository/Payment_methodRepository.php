@@ -11,7 +11,7 @@ class Payment_methodRepository {
         'description' => 'string'
     ];
 
-    protected $keys = ['name','gateway','private_key','public_key'];
+    protected $keys = ['name','gateway','private_key','public_key', 'css_show', 'css_hide'];
 
     public function all(){
         return Payment_method::orderBy('id', 'desc')->get();

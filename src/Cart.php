@@ -46,7 +46,8 @@ class Cart {
 	/**
 	 * Constructor
 	 *
-	 * @param Illuminate\Session\SessionManager                                                             $session Session class instance
+	 * @param Illuminate\Session\SessionManager
+     * $session Session class instance
 	 * @param \Illuminate\Contracts\Events\Dispatcher $event Event class instance
 	 */
 	public function __construct($session, Dispatcher $event)
