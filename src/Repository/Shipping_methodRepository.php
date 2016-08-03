@@ -10,7 +10,7 @@ class Shipping_methodRepository {
         'name' => 'max:255',
     ];
 
-    protected $keys = ['name','api_key','api', 'css_show', 'css_hide'];
+    protected $keys = ['name','api_key','api', 'css_show', 'css_hide', 'price', 'free_cost'];
 
     public function all(){
         return Shipping_method::orderBy('id', 'desc')->get();

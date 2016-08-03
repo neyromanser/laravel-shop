@@ -10,7 +10,7 @@ class Shipping_method extends Model
     
     protected $table = 'shipping_method';
 
-    protected $fillable = ['name','api_key','api', 'css_show', 'css_hide'];
+    protected $fillable = ['name','api_key','api', 'css_show', 'css_hide', 'price', 'free_cost'];
 
     protected $hidden = [ 'created_at', 'updated_at'];
 

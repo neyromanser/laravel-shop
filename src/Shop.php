@@ -48,14 +48,14 @@ class Shop{
         if($id)
             return Payment_method::where('active',1)->where('id',$id)->select()->get();
         else
-            return Payment_method::where('active',1)->select()->get();
+            return Payment_method::where('active',1)->select()->orderBy('id','desc')->get();
     }
 
     static function getShipping($id=false){
         if($id)
             return Shipping_method::where('active',1)->where('id',$id)->select()->get();
         else
-            return Shipping_method::where('active',1)->select()->get();
+            return Shipping_method::where('active',1)->select()->orderBy('id','desc')->get();
     }
 	
 	static function getPaymentName($id){
