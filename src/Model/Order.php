@@ -57,13 +57,11 @@ class Order extends Model
      * @param $user_id
      * @return mixed
      */
-    public function getUserOrders($user_id)
-    {
+    public function getUserOrders($user_id){
         return self::where('user_id', $user_id)->get();
     }
 
-    public function getAllOrders()
-    {
+    public function getAllOrders(){
         return self::orderBy('created_at','desc')->get();
     }
 
@@ -100,19 +98,23 @@ class Order extends Model
         return $item;
     }
 
-    public function addItem($order, Model $object, $price, $qty, $data = null, $vat = 0)
-    {
+    public function addItem($order, Model $object, $price, $qty, $data = null, $vat = 0, $discount=0){
         $orderItem = new OrderItem();
 
-        if ($data) {
-          $orderItem->fill($data);
-        }
+        if ($data) $orderItem->fill($data);
 
         $orderItem->line_item_id = $object->id;
         $orderItem->line_item_type = get_class($object);
         $orderItem->price = $price;
         $orderItem->quantity = $qty;
         $orderItem->vat = $vat;
+
+        if($discount){
+            $orderItem->discount_amount = round($discount / 100 * $price, 2);
+            $orderItem->discount_percent = $discount;
+            $price -= $orderItem->discount_amount;
+            $orderItem->price -= $price;
+        }
 
         $orderItem->total_price = $qty * $price;
         $orderItem->total_price += $orderItem->total_price * $vat;
@@ -133,9 +135,8 @@ class Order extends Model
         foreach ($orderItems as $item) {
           $orderItem = new OrderItem();
 
-          if ($item) {
-            $orderItem->fill($item);
-          }
+          if ($item) $orderItem->fill($item);
+
 
           $orderItem->total_price = $orderItem->quantity * $orderItem->price;
           $orderItem->total_price += $orderItem->total_price * $orderItem->vat;
@@ -211,8 +212,24 @@ class Order extends Model
 
         $order->items_total = $this->total($order);
         $order->items_number = $this->count($order);
+        $order->discount = $this->discount($order);
         $order->save();
         return $order;
+    }
+
+    public function discount($order){
+        if ($order->id > 0) {
+            $items = OrderItem::where('order_id', $order->id)->get();
+        }else{
+            $items = $order->orderItems;
+        }
+        $total = 0;
+        if ($items) {
+            foreach ($items as $item) {
+                if($item->discount_amount) $total += $item->discount_amount * $item->quantity;
+            }
+        }
+        return $total;
     }
 
     /**

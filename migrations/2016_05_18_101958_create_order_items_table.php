@@ -26,6 +26,9 @@ class CreateOrderItemsTable extends Migration {
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
+            $table->integer('discount_percent');
+            $table->float('discount_amount', 10, 2);
+
 			// custom fields
 			$table->string('description')->nullable();
 			$table->string('currency')->nullable();

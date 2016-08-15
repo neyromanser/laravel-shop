@@ -25,6 +25,8 @@ class CreateOrdersTable extends Migration {
 			$table->text('note')->nullable();
             $table->timestamps();
 
+            $table->float('discount', 15, 2);
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
 			//custom fields
