@@ -128,7 +128,7 @@ class Cart {
 
 			$options = array_get($id, 'options', []);
 
-            if($id['discount']) {
+            if(array_key_exists('discount',$id) && $id['discount']) {
                 $discount_amount  = round($id['discount'] / 100 * $id['price'], 2);
                 $discount_percent = $id['discount'];
                 //$id['price'] -= $id['discount_amount'];
