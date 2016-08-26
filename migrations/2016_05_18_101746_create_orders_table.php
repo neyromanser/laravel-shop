@@ -17,12 +17,14 @@ class CreateOrdersTable extends Migration {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('state');
+            $table->string('e_id')->nullable();
             $table->integer('items_number')->unsigned();
             $table->float('items_total', 15, 2);
             $table->integer('adjustments_numbers')->nullable();
             $table->float('adjustments_total', 15, 2)->nullable();
             $table->dateTime('completed_at')->nullable();
 			$table->text('note')->nullable();
+			$table->text('salon')->nullable();
             $table->timestamps();
 
             $table->float('discount', 15, 2);

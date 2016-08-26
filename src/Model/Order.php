@@ -30,9 +30,7 @@ class Order extends Model
         $order->items_number = 0;
         $order->items_total = 0;
 
-        if ($data) {
-          $order->fill($data);
-        }
+        if ($data) $order->fill($data);
 
         $order->state = config("shop.status_init");
         $order->save();
@@ -273,6 +271,11 @@ class Order extends Model
     }
 
     public function orderItems(){
+        //return OrderItem::where('order_id', $this->id)->get();
         return $this->hasMany('Neyromanser\LaravelShop\Model\OrderItem');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User');
     }
 }

@@ -18,6 +18,7 @@ class CreateOrderItemsTable extends Migration {
             $table->integer('order_id')->unsigned();
             $table->integer('line_item_id')->unsigned();
 			$table->string('line_item_type');
+			$table->string('size');
             $table->float('price', 10, 2);
             $table->integer('quantity');
 			$table->double('vat');
